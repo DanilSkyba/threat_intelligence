@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Intelligence</title>
+</head>
+<body>
+    <h1>Threat Intelligence</h1>
+    <form id="urlForm" onsubmit="openURLs(event)">
+        <label for="inputs">Enter your input:</label>
+        <input type="text" id="inputs" name="inputs" required>
+        <button type="submit">Get URLs</button>
+    </form>
+
+    <div id="generatedURLs">
+        <!-- URLs will be displayed here -->
+    </div>
+
+    <script>
+        function openURLs(event) {
+            event.preventDefault();
+
+            var user_input = document.getElementById("inputs").value;
+
+            var urls = [
+                {"name": "Talos Intelligence", "url": `https://www.talosintelligence.com/reputation_center/lookup?search=${user_input}`},
+                {"name": "VirusTotal", "url": `https://www.virustotal.com/gui/search/${user_input}`},
+                {"name": "AbuseIPDB", "url": `https://www.abuseipdb.com/check/${user_input}`},
+                {"name": "AlienVault OTX", "url": `https://otx.alienvault.com/browse/global/pulses?q=${user_input}&include_inactive=0&sort=-modified&page=1&limit=10&indicatorsSearch=${user_input}`}
+            ];
+
+            var generatedURLsDiv = document.getElementById("generatedURLs");
+            generatedURLsDiv.innerHTML = "<h2>Generated URLs:</h2><ul>";
+
+            urls.forEach(function(link) {
+                generatedURLsDiv.innerHTML += `<li><a href="${link.url}" target="_blank">${link.name}</a></li>`;
+            });
+
+            generatedURLsDiv.innerHTML += "</ul>";
+        }
+    </script>
+</body>
+</html>
